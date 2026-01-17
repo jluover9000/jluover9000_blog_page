@@ -10,49 +10,122 @@
 <atom:link href="https://your-website-url.example.com/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog built with Quarto</description>
 <generator>quarto-1.8.26</generator>
-<lastBuildDate>Mon, 12 Jan 2026 08:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 16 Jan 2026 08:00:00 GMT</lastBuildDate>
 <item>
-  <title>Post With Code</title>
-  <dc:creator>Harlow Malloc</dc:creator>
-  <link>https://your-website-url.example.com/posts/post-with-code/</link>
+  <title>When Your 98% Accurate Medical ML Might Be Completely Useless: Understanding Class Imbalance in Healthcare</title>
+  <dc:creator>Jackson Lu</dc:creator>
+  <link>https://your-website-url.example.com/posts/class-imbalance-healthcare/</link>
   <description><![CDATA[ 
 
 
 
 
 
-<p>This is a post with executable code.</p>
+<section id="introduction-the-fruit-basket-problem" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-the-fruit-basket-problem">Introduction: The Fruit Basket Problem</h2>
+<p>Imagine you’re teaching a child to recognize different types of fruit. If you show them 100 pictures of apples but only 5 pictures of oranges, they’ll become very good at identifying apples but terrible when they see an orange. This same problem plagues machine learning models in healthcare.</p>
+<p>When John, a machine learning engineer at a healthcare tech company, built their first diagnostic model for detecting rare diseases, they were thrilled to see 98% accuracy. But there was a problem: the model achieved this impressive number by simply labeling everything as “normal”. With 10,000 healthy scans and only 200 disease scans in their dataset, the model learned to play it safe. It missed every single actual disease case.</p>
+<p>This is the class imbalance problem, and in healthcare, where early detection can mean the difference between life and death, getting it wrong isn’t just a technical failure.</p>
+</section>
+<section id="the-problem-why-class-imbalance-breaks-ml" class="level2">
+<h2 class="anchored" data-anchor-id="the-problem-why-class-imbalance-breaks-ml">The Problem: Why Class Imbalance Breaks ML</h2>
+<p>Class imbalance occurs when one category in your dataset significantly outnumbers others. In medical datasets, this is incredibly common: most patients are healthy, most scans are normal, and serious diseases are rare. But this natural imbalance creates a perfect storm for machine learning failure.</p>
+<p>The stakes are particularly high in personalized medicine, where we’re moving toward prevention, early diagnosis, and targeted treatment. These approaches demand reliable screening methods to identify at-risk patients before symptoms appear. But if your model can’t recognize rare conditions because it never learned to spot them, the entire promise of personalized medicine collapses.</p>
+<p>Standard machine learning classifiers assume balanced datasets. When faced with imbalance, they develop a strong bias toward the majority class. The consequences are severe: algorithms produce misleading accuracy metrics, favor the majority class in predictions, and most dangerously, fail to identify the very patients who need help most urgently. A model that misses cancer cases while correctly identifying thousands of healthy patients is beyond useless.</p>
+</section>
+<section id="two-approaches-to-solving-the-imbalance-problem" class="level2">
+<h2 class="anchored" data-anchor-id="two-approaches-to-solving-the-imbalance-problem">Two Approaches to Solving the Imbalance Problem</h2>
+<p>Researchers have tackled class imbalance from two angles: the data level and the algorithm level.</p>
+<p><strong>Data-Level Solutions</strong> focus on rebalancing your dataset before training:</p>
+<ul>
+<li><p><strong>SMOTE (Synthetic Minority Oversampling Technique)</strong>: Creates synthetic examples of the minority class by interpolating between existing samples. Instead of just duplicating rare disease cases, SMOTE generates new, slightly different examples.</p></li>
+<li><p><strong>Undersampling</strong>: Reduces the majority class by randomly removing examples. While this balances the dataset, you lose potentially valuable information.</p></li>
+<li><p><strong>Hybrid Approach</strong>: Combines both techniques, using SMOTE to generate more minority examples while undersampling the majority class to meet in the middle.</p></li>
+</ul>
+<p><strong>Algorithm-Level Solutions</strong> modify the learning algorithms themselves:</p>
+<ul>
+<li><p><strong>Balanced Bagging</strong>: Creates multiple subsets of data, each balanced between classes, and trains separate models on each subset.</p></li>
+<li><p><strong>Balanced Random Forest</strong>: Similar to Balanced Bagging but uses decision trees as base learners.</p></li>
+<li><p><strong>Cost-Sensitive Learning</strong>: Assigns different costs to misclassifying different classes, making the algorithm pay more attention to rare cases.</p></li>
+</ul>
+<p>The most effective approach? Combining both levels strategically, depending on which algorithm you’re using.</p>
+<blockquote class="blockquote">
+<p>“Machine learning is an art—knowing when to use what and how to find a balance.”<br>
+— Professor Varada</p>
+</blockquote>
+</section>
+<section id="the-great-comparison-what-actually-works" class="level2">
+<h2 class="anchored" data-anchor-id="the-great-comparison-what-actually-works">The Great Comparison: What Actually Works?</h2>
+<p>To answer this question, let’s examine real experiments using two critical healthcare datasets: Age-Related Macular Degeneration (AMD) and Preeclampsia detection. These studies tested eight different classification methods with various combinations of SMOTE and undersampling.</p>
+<section id="tree-based-methods-the-clear-winners" class="level3">
+<h3 class="anchored" data-anchor-id="tree-based-methods-the-clear-winners">Tree-Based Methods: The Clear Winners</h3>
+<p><strong>Balanced Bagging</strong> emerged as the champion, achieving <strong>97% balanced accuracy</strong> on the AMD dataset. Unlike regular accuracy, balanced accuracy accounts for performance on both classes, making it a more honest metric for imbalanced data. However, this performance comes at a cost, Balanced Bagging is computationally expensive, requiring significantly more processing time.</p>
+<p><strong>Balanced Random Forest</strong> provided an excellent compromise, achieving <strong>96%+ balanced accuracy</strong> with notably faster runtime. For the Preeclampsia dataset, it maintained strong performance with <strong>77%+ balanced accuracy</strong>, demonstrating consistency across different medical conditions.</p>
+<p><strong>Gradient Boosting</strong> and standard <strong>Random Forest</strong> also performed admirably, consistently achieving balanced accuracy scores above 96% on AMD and 72% on Preeclampsia. The key insight? Tree-based methods handle imbalance well even without SMOTE or undersampling.</p>
+</section>
+<section id="non-tree-methods-smote-makes-the-difference" class="level3">
+<h3 class="anchored" data-anchor-id="non-tree-methods-smote-makes-the-difference">Non-Tree Methods: SMOTE Makes the Difference</h3>
+<p>For algorithms like <strong>K-Nearest Neighbors (KNN)</strong>, <strong>Support Vector Machines (SVM)</strong>, and <strong>Logistic Regression</strong>, the story was different. Without SMOTE and undersampling, these methods struggled with imbalanced data. But with proper data-level techniques:</p>
+<ul>
+<li><strong>KNN</strong> jumped from 57.96% to <strong>64.44% balanced accuracy</strong> on Preeclampsia when paired with SMOTE</li>
+<li><strong>Logistic Regression</strong> jumped from 61.01% to <strong>74.12% balanced accuracy</strong> on Preeclampsia when paired with SMOTE</li>
+<li><strong>SVM</strong> showed similar improvements across both datasets</li>
+</ul>
+<p>This reveals a crucial pattern: <strong>your choice of technique depends entirely on your algorithm</strong>. Tree-based methods have built-in mechanisms to handle imbalance, while non-tree methods desperately need data-level interventions.</p>
+</section>
+</section>
+<section id="real-world-results-the-numbers-dont-lie" class="level2">
+<h2 class="anchored" data-anchor-id="real-world-results-the-numbers-dont-lie">Real-World Results: The Numbers Don’t Lie</h2>
+<p>Here’s what the experiments revealed across different case reduction scenarios (removing 0% to 90% of majority class samples):</p>
+<p><strong>Key Finding #1</strong>: Balanced Bagging and Balanced Random Forest maintained high performance regardless of how aggressively the majority class was reduced. This robustness is critical in healthcare where you might need to work with limited data.</p>
+<p><strong>Key Finding #2</strong>: The results were remarkably consistent across both AMD and Preeclampsia datasets, suggesting these findings generalize across different medical conditions.</p>
+<p><strong>Key Finding #3</strong>: For tree-based methods, adding SMOTE and undersampling provided minimal improvement—they were already handling imbalance effectively. But for KNN, SVM, and Logistic Regression, these techniques were transformative.</p>
+</section>
+<section id="practical-takeaways-your-decision-guide" class="level2">
+<h2 class="anchored" data-anchor-id="practical-takeaways-your-decision-guide">Practical Takeaways: Your Decision Guide</h2>
+<p>If you’re like John, facing an imbalanced healthcare dataset and uncertain which approach to take, here’s your roadmap:</p>
+<p><strong>Using Tree-Based Algorithms?</strong></p>
+<ul>
+<li>First choice: Balanced Random Forest (great performance, reasonable speed)</li>
+<li>Best performance: Balanced Bagging (if computational cost isn’t a concern)</li>
+<li>Alternative: Gradient Boosting or standard Random Forest</li>
+<li>Skip SMOTE/undersampling (you probably don’t need it)</li>
+</ul>
+<p><strong>Using Non-Tree Algorithms?</strong></p>
+<ul>
+<li><strong>Always</strong> apply SMOTE and undersampling</li>
+<li>KNN and Logistic Regression show particularly strong improvements</li>
+<li>Test different SMOTE configurations to find optimal synthetic sample generation</li>
+</ul>
+<p><strong>Making Trade-offs:</strong></p>
+<ul>
+<li>Balanced Bagging: Highest accuracy, highest computational cost</li>
+<li>Balanced Random Forest: Excellent accuracy-to-speed ratio</li>
+<li>Gradient Boosting: Strong middle ground</li>
+</ul>
+<p><strong>Critical Reminder</strong>: Don’t trust regular accuracy metrics. Always use balanced accuracy or F1-score for imbalanced datasets. That 98% accuracy might just mean your model learned to say “normal” to everything.</p>
+</section>
+<section id="conclusion-accuracy-isnt-enough" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion-accuracy-isnt-enough">Conclusion: Accuracy Isn’t Enough</h2>
+<p>Before deploying your medical ML model, remember: the right technique isn’t just about accuracy. It’s about ensuring your model works fairly for ALL patients, including those rare disease cases that matter most. A model that achieves 98% accuracy by missing every cancer case is dangerous.</p>
+<p>The solution isn’t one-size-fits-all. Tree-based methods like Balanced Random Forest offer robust out-of-the-box performance. Non-tree methods need help from SMOTE and undersampling. The key is understanding your algorithm’s strengths and weaknesses, then choosing techniques that compensate for its blind spots.</p>
+<p>In healthcare, every missed diagnosis is a patient who didn’t get the care they needed. By thoughtfully addressing class imbalance, we can build a systems that recognize not just the common cases, but the critical rare ones too. Only then can we fulfill the promise of personalized medicine, prevention, early diagnosis, and targeted treatment for everyone, not just the statistical majority.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>IEEE Xplore Document 10705995. Available at: <a href="https://ieeexplore.ieee.org/document/10705995">https://ieeexplore.ieee.org/document/10705995</a></p>
+<hr>
 
 
+</section>
 
  ]]></description>
-  <category>news</category>
-  <category>code</category>
-  <category>analysis</category>
-  <guid>https://your-website-url.example.com/posts/post-with-code/</guid>
-  <pubDate>Mon, 12 Jan 2026 08:00:00 GMT</pubDate>
-  <media:content url="https://your-website-url.example.com/posts/post-with-code/image.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title>Welcome To My Blog</title>
-  <dc:creator>Tristan O&#39;Malley</dc:creator>
-  <link>https://your-website-url.example.com/posts/welcome/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>This is the first post in a Quarto blog. Welcome!</p>
-<p><img src="https://your-website-url.example.com/posts/welcome/thumbnail.jpg" class="img-fluid"></p>
-<p>Since this post doesn’t specify an explicit <code>image</code>, the first image in the post will be used in the listing page of posts.</p>
-
-
-
- ]]></description>
-  <category>news</category>
-  <guid>https://your-website-url.example.com/posts/welcome/</guid>
-  <pubDate>Fri, 09 Jan 2026 08:00:00 GMT</pubDate>
+  <category>machine learning</category>
+  <category>healthcare</category>
+  <category>data science</category>
+  <guid>https://your-website-url.example.com/posts/class-imbalance-healthcare/</guid>
+  <pubDate>Fri, 16 Jan 2026 08:00:00 GMT</pubDate>
+  <media:content url="https://your-website-url.example.com/posts/class-imbalance-healthcare/medicine.png" medium="image" type="image/png" height="108" width="144"/>
 </item>
 </channel>
 </rss>

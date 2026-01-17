@@ -9,10 +9,13 @@ website:
   navbar:
     right:
       - about.qmd
+      - icon: backpack
+        href: https://jacksonlu.ca/
       - icon: github
-        href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+        href: https://github.com/jluover9000
+      - icon: linkedin
+        href: https://www.linkedin.com/in/jackson-lu-profiles/
+
 format:
   html:
     theme:

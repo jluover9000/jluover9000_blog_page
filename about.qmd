@@ -1,18 +1,18 @@
 ---
 title: "About"
-image: profile.jpg
+image: profile.jpeg
 about:
   template: jolla
   links:
-    - icon: twitter
-      text: Twitter
-      href: https://twitter.com
+    - icon: backpack
+      text: MySite
+      href: https://jacksonlu.ca/
     - icon: linkedin
       text: LinkedIn
-      href: https://linkedin.com
+      href: https://www.linkedin.com/in/jackson-lu-profiles/
     - icon: github
       text: Github
-      href: https://github.com
+      href: https://github.com/jluover9000
 
 ---
 

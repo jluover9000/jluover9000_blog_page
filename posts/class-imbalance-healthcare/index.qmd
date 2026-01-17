@@ -1,0 +1,119 @@
+---
+title: "When Your 98% Accurate Medical ML Might Be Completely Useless: Understanding Class Imbalance in Healthcare"
+author: "Jackson Lu"
+date: "2026-01-16"
+categories: [machine learning, healthcare, data science]
+image: "medicine.png"
+---
+
+## Introduction: The Fruit Basket Problem 
+
+Imagine you're teaching a child to recognize different types of fruit. If you show them 100 pictures of apples but only 5 pictures of oranges, they'll become very good at identifying apples but terrible when they see an orange. This same problem plagues machine learning models in healthcare.
+
+When John, a machine learning engineer at a healthcare tech company, built their first diagnostic model for detecting rare diseases, they were thrilled to see 98% accuracy. But there was a problem: the model achieved this impressive number by simply labeling everything as "normal". With 10,000 healthy scans and only 200 disease scans in their dataset, the model learned to play it safe. It missed every single actual disease case.
+
+This is the class imbalance problem, and in healthcare, where early detection can mean the difference between life and death, getting it wrong isn't just a technical failure.
+
+## The Problem: Why Class Imbalance Breaks ML
+
+Class imbalance occurs when one category in your dataset significantly outnumbers others. In medical datasets, this is incredibly common: most patients are healthy, most scans are normal, and serious diseases are rare. But this natural imbalance creates a perfect storm for machine learning failure.
+
+The stakes are particularly high in personalized medicine, where we're moving toward prevention, early diagnosis, and targeted treatment. These approaches demand reliable screening methods to identify at-risk patients before symptoms appear. But if your model can't recognize rare conditions because it never learned to spot them, the entire promise of personalized medicine collapses.
+
+Standard machine learning classifiers assume balanced datasets. When faced with imbalance, they develop a strong bias toward the majority class. The consequences are severe: algorithms produce misleading accuracy metrics, favor the majority class in predictions, and most dangerously, fail to identify the very patients who need help most urgently. A model that misses cancer cases while correctly identifying thousands of healthy patients is beyond useless.
+
+## Two Approaches to Solving the Imbalance Problem
+
+Researchers have tackled class imbalance from two angles: the data level and the algorithm level. 
+
+**Data-Level Solutions** focus on rebalancing your dataset before training:
+
+- **SMOTE (Synthetic Minority Oversampling Technique)**: Creates synthetic examples of the minority class by interpolating between existing samples. Instead of just duplicating rare disease cases, SMOTE generates new, slightly different examples.
+  
+- **Undersampling**: Reduces the majority class by randomly removing examples. While this balances the dataset, you lose potentially valuable information.
+
+- **Hybrid Approach**: Combines both techniques, using SMOTE to generate more minority examples while undersampling the majority class to meet in the middle.
+
+**Algorithm-Level Solutions** modify the learning algorithms themselves:
+
+- **Balanced Bagging**: Creates multiple subsets of data, each balanced between classes, and trains separate models on each subset.
+
+- **Balanced Random Forest**: Similar to Balanced Bagging but uses decision trees as base learners.
+
+- **Cost-Sensitive Learning**: Assigns different costs to misclassifying different classes, making the algorithm pay more attention to rare cases.
+
+The most effective approach? Combining both levels strategically, depending on which algorithm you're using.
+
+> "Machine learning is an art—knowing when to use what and how to find a balance."  
+> — Professor Varada
+
+## The Great Comparison: What Actually Works?
+
+To answer this question, let's examine real experiments using two critical healthcare datasets: Age-Related Macular Degeneration (AMD) and Preeclampsia detection. These studies tested eight different classification methods with various combinations of SMOTE and undersampling.
+
+### Tree-Based Methods: The Clear Winners
+
+**Balanced Bagging** emerged as the champion, achieving **97% balanced accuracy** on the AMD dataset. Unlike regular accuracy, balanced accuracy accounts for performance on both classes, making it a more honest metric for imbalanced data. However, this performance comes at a cost, Balanced Bagging is computationally expensive, requiring significantly more processing time.
+
+**Balanced Random Forest** provided an excellent compromise, achieving **96%+ balanced accuracy** with notably faster runtime. For the Preeclampsia dataset, it maintained strong performance with **77%+ balanced accuracy**, demonstrating consistency across different medical conditions.
+
+**Gradient Boosting** and standard **Random Forest** also performed admirably, consistently achieving balanced accuracy scores above 96% on AMD and 72% on Preeclampsia. The key insight? Tree-based methods handle imbalance well even without SMOTE or undersampling.
+
+### Non-Tree Methods: SMOTE Makes the Difference
+
+For algorithms like **K-Nearest Neighbors (KNN)**, **Support Vector Machines (SVM)**, and **Logistic Regression**, the story was different. Without SMOTE and undersampling, these methods struggled with imbalanced data. But with proper data-level techniques:
+
+- **KNN** jumped from 57.96% to **64.44% balanced accuracy** on Preeclampsia when paired with SMOTE
+- **Logistic Regression** jumped from 61.01% to **74.12% balanced accuracy** on Preeclampsia when paired with SMOTE
+- **SVM** showed similar improvements across both datasets
+
+This reveals a crucial pattern: **your choice of technique depends entirely on your algorithm**. Tree-based methods have built-in mechanisms to handle imbalance, while non-tree methods desperately need data-level interventions.
+
+## Real-World Results: The Numbers Don't Lie
+
+Here's what the experiments revealed across different case reduction scenarios (removing 0% to 90% of majority class samples):
+
+**Key Finding #1**: Balanced Bagging and Balanced Random Forest maintained high performance regardless of how aggressively the majority class was reduced. This robustness is critical in healthcare where you might need to work with limited data.
+
+**Key Finding #2**: The results were remarkably consistent across both AMD and Preeclampsia datasets, suggesting these findings generalize across different medical conditions.
+
+**Key Finding #3**: For tree-based methods, adding SMOTE and undersampling provided minimal improvement—they were already handling imbalance effectively. But for KNN, SVM, and Logistic Regression, these techniques were transformative.
+
+## Practical Takeaways: Your Decision Guide
+
+If you're like John, facing an imbalanced healthcare dataset and uncertain which approach to take, here's your roadmap:
+
+**Using Tree-Based Algorithms?**
+
+- First choice: Balanced Random Forest (great performance, reasonable speed)
+- Best performance: Balanced Bagging (if computational cost isn't a concern)
+- Alternative: Gradient Boosting or standard Random Forest
+- Skip SMOTE/undersampling (you probably don't need it)
+
+**Using Non-Tree Algorithms?**
+
+- **Always** apply SMOTE and undersampling
+- KNN and Logistic Regression show particularly strong improvements
+- Test different SMOTE configurations to find optimal synthetic sample generation
+
+**Making Trade-offs:**
+
+- Balanced Bagging: Highest accuracy, highest computational cost
+- Balanced Random Forest: Excellent accuracy-to-speed ratio
+- Gradient Boosting: Strong middle ground
+
+**Critical Reminder**: Don't trust regular accuracy metrics. Always use balanced accuracy or F1-score for imbalanced datasets. That 98% accuracy might just mean your model learned to say "normal" to everything.
+
+## Conclusion: Accuracy Isn't Enough
+
+Before deploying your medical ML model, remember: the right technique isn't just about accuracy. It's about ensuring your model works fairly for ALL patients, including those rare disease cases that matter most. A model that achieves 98% accuracy by missing every cancer case is dangerous.
+
+The solution isn't one-size-fits-all. Tree-based methods like Balanced Random Forest offer robust out-of-the-box performance. Non-tree methods need help from SMOTE and undersampling. The key is understanding your algorithm's strengths and weaknesses, then choosing techniques that compensate for its blind spots.
+
+In healthcare, every missed diagnosis is a patient who didn't get the care they needed. By thoughtfully addressing class imbalance, we can build a systems that recognize not just the common cases, but the critical rare ones too. Only then can we fulfill the promise of personalized medicine, prevention, early diagnosis, and targeted treatment for everyone, not just the statistical majority.
+
+## References
+
+IEEE Xplore Document 10705995. Available at: [https://ieeexplore.ieee.org/document/10705995](https://ieeexplore.ieee.org/document/10705995)
+
+---
