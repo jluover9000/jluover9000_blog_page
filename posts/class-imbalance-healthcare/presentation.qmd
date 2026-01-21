@@ -1,0 +1,91 @@
+---
+title: "Tackling Class Imbalance in Machine Learning"
+subtitle: "Data-Level vs Algorithm-Level Solutions"
+format:
+  revealjs:
+    theme: dark
+    transition: slide
+    slide-number: true
+---
+
+## What is Class Imbalance?
+
+:::: {.columns}
+::: {.column width="50%"}
+**Teaching a Kid**
+
+- 🍎 100 apples
+- 🍊 5 oranges
+
+Great at spotting apples ✓  
+Poor at spotting oranges ✗
+:::
+
+::: {.column width="50%"}
+**In Machine Learning**
+
+- Majority class dominates
+- Model ignores minority class
+- Same problem!
+:::
+::::
+
+---
+
+## Data-Level Solutions
+
+:::: {.columns}
+::: {.column width="50%"}
+### SMOTE
+- Creates synthetic minority examples
+- Interpolates between samples
+- Balances dataset
+:::
+
+::: {.column width="50%"}
+### Undersampling
+- Reduces majority class
+- Risk: loses information
+:::
+::::
+
+---
+
+## Algorithm-Level Solutions
+
+**Tree-Based Ensembles**
+
+:::: {.columns}
+::: {.column width="50%"}
+### Balanced Bagging
+- Balanced bootstrap sampling
+- Multiple balanced trees
+:::
+
+::: {.column width="50%"}
+### Balanced Random Forest
+- Built-in class weights
+- No preprocessing needed
+:::
+::::
+
+::: {.callout-important}
+**Outperform** data-level methods!
+:::
+
+---
+
+## Key Takeaways
+
+::: {.incremental}
+1. **Class imbalance** → models favor majority class
+
+2. **Data-level**: SMOTE, undersampling
+   - Simple but may lose info
+
+3. **Algorithm-level**: Balanced ensembles
+   - Better performance
+   - No preprocessing
+
+4. **Tree-based ensembles win!**
+:::

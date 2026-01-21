@@ -70,10 +70,38 @@
     "text": "References\nIEEE Xplore Document 10705995. Available at: https://ieeexplore.ieee.org/document/10705995"
   },
   {
+    "objectID": "posts/class-imbalance-healthcare/presentation.html#what-is-class-imbalance",
+    "href": "posts/class-imbalance-healthcare/presentation.html#what-is-class-imbalance",
+    "title": "Tackling Class Imbalance in Machine Learning",
+    "section": "What is Class Imbalance?",
+    "text": "What is Class Imbalance?\n\n\nTeaching a Kid\n\n🍎 100 apples\n🍊 5 oranges\n\nGreat at spotting apples ✓\nPoor at spotting oranges ✗\n\nIn Machine Learning\n\nMajority class dominates\nModel ignores minority class\nSame problem!"
+  },
+  {
+    "objectID": "posts/class-imbalance-healthcare/presentation.html#data-level-solutions",
+    "href": "posts/class-imbalance-healthcare/presentation.html#data-level-solutions",
+    "title": "Tackling Class Imbalance in Machine Learning",
+    "section": "Data-Level Solutions",
+    "text": "Data-Level Solutions\n\n\nSMOTE\n\nCreates synthetic minority examples\nInterpolates between samples\nBalances dataset\n\n\nUndersampling\n\nReduces majority class\nRisk: loses information"
+  },
+  {
+    "objectID": "posts/class-imbalance-healthcare/presentation.html#algorithm-level-solutions",
+    "href": "posts/class-imbalance-healthcare/presentation.html#algorithm-level-solutions",
+    "title": "Tackling Class Imbalance in Machine Learning",
+    "section": "Algorithm-Level Solutions",
+    "text": "Algorithm-Level Solutions\nTree-Based Ensembles\n\n\nBalanced Bagging\n\nBalanced bootstrap sampling\nMultiple balanced trees\n\n\nBalanced Random Forest\n\nBuilt-in class weights\nNo preprocessing needed\n\n\n\n\n\n\n\n\nImportant\n\n\nOutperform data-level methods!"
+  },
+  {
+    "objectID": "posts/class-imbalance-healthcare/presentation.html#key-takeaways",
+    "href": "posts/class-imbalance-healthcare/presentation.html#key-takeaways",
+    "title": "Tackling Class Imbalance in Machine Learning",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\nClass imbalance → models favor majority class\nData-level: SMOTE, undersampling\n\nSimple but may lose info\n\nAlgorithm-level: Balanced ensembles\n\nBetter performance\nNo preprocessing\n\nTree-based ensembles win!"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "myblog",
     "section": "",
-    "text": "When Your 98% Accurate Medical ML Might Be Completely Useless: Understanding Class Imbalance in Healthcare\n\n\n\nmachine learning\n\nhealthcare\n\ndata science\n\n\n\n\n\n\n\n\n\nJan 16, 2026\n\n\nJackson Lu\n\n\n\n\n\nNo matching items"
+    "text": "Tackling Class Imbalance in Machine Learning\n\n\nData-Level vs Algorithm-Level Solutions\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhen Your 98% Accurate Medical ML Might Be Completely Useless: Understanding Class Imbalance in Healthcare\n\n\n\n\n\n\nmachine learning\n\nhealthcare\n\ndata science\n\n\n\n\n\n\n\n\n\nJan 16, 2026\n\n\nJackson Lu\n\n\n\n\n\nNo matching items"
   }
 ]
