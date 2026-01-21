@@ -9,16 +9,14 @@ format:
     toc: true
 ---
 
-## Quick Overview: 3-Minute Presentation
+## Presentation
 
-::: {.callout-tip collapse="true"}
-## Click to view slide deck
+::: {.callout-tip}
+## Slide Deck
 
-```{=html}
-<iframe src="presentation.html" width="100%" height="500px" style="border:1px solid #ccc;"></iframe>
-```
+[Open slide presentation](_presentation.html){target="_blank" .btn .btn-primary}
 
-[Open slides in full screen](presentation.html){target="_blank"}
+A quick overview of class imbalance solutions in machine learning.
 :::
 
 ## Introduction: The Fruit Basket Problem 

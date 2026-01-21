@@ -1,6 +1,7 @@
 ---
 title: "Tackling Class Imbalance in Machine Learning"
 subtitle: "Data-Level vs Algorithm-Level Solutions"
+listing: false
 format:
   revealjs:
     theme: dark
