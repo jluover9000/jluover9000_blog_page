@@ -21,6 +21,26 @@
 
 
 
+<section id="quick-overview-3-minute-presentation" class="level2">
+<h2 class="anchored" data-anchor-id="quick-overview-3-minute-presentation">Quick Overview: 3-Minute Presentation</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Click to view slide deck
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<iframe src="presentation.html" width="100%" height="500px" style="border:1px solid #ccc;"></iframe>
+<p><a href="presentation.html" target="_blank">Open slides in full screen</a></p>
+</div>
+</div>
+</div>
+</section>
 <section id="introduction-the-fruit-basket-problem" class="level2">
 <h2 class="anchored" data-anchor-id="introduction-the-fruit-basket-problem">Introduction: The Fruit Basket Problem</h2>
 <p>Imagine you’re teaching a child to recognize different types of fruit. If you show them 100 pictures of apples but only 5 pictures of oranges, they’ll become very good at identifying apples but terrible when they see an orange. This same problem plagues machine learning models in healthcare.</p>
@@ -132,7 +152,7 @@
   <link>https://your-website-url.example.com/posts/class-imbalance-healthcare/presentation.html</link>
   <description><![CDATA[ undefined ]]></description>
   <guid>https://your-website-url.example.com/posts/class-imbalance-healthcare/presentation.html</guid>
-  <pubDate>Wed, 21 Jan 2026 22:04:32 GMT</pubDate>
+  <pubDate>Wed, 21 Jan 2026 22:09:26 GMT</pubDate>
 </item>
 </channel>
 </rss>

@@ -11,14 +11,14 @@
     "href": "posts/class-imbalance-healthcare/index.html",
     "title": "When Your 98% Accurate Medical ML Might Be Completely Useless: Understanding Class Imbalance in Healthcare",
     "section": "",
-    "text": "Imagine you’re teaching a child to recognize different types of fruit. If you show them 100 pictures of apples but only 5 pictures of oranges, they’ll become very good at identifying apples but terrible when they see an orange. This same problem plagues machine learning models in healthcare.\nWhen John, a machine learning engineer at a healthcare tech company, built their first diagnostic model for detecting rare diseases, they were thrilled to see 98% accuracy. But there was a problem: the model achieved this impressive number by simply labeling everything as “normal”. With 10,000 healthy scans and only 200 disease scans in their dataset, the model learned to play it safe. It missed every single actual disease case.\nThis is the class imbalance problem, and in healthcare, where early detection can mean the difference between life and death, getting it wrong isn’t just a technical failure."
+    "text": "TipClick to view slide deck\n\n\n\n\n\n\nOpen slides in full screen"
   },
   {
     "objectID": "posts/class-imbalance-healthcare/index.html#introduction-the-fruit-basket-problem",
     "href": "posts/class-imbalance-healthcare/index.html#introduction-the-fruit-basket-problem",
     "title": "When Your 98% Accurate Medical ML Might Be Completely Useless: Understanding Class Imbalance in Healthcare",
-    "section": "",
-    "text": "Imagine you’re teaching a child to recognize different types of fruit. If you show them 100 pictures of apples but only 5 pictures of oranges, they’ll become very good at identifying apples but terrible when they see an orange. This same problem plagues machine learning models in healthcare.\nWhen John, a machine learning engineer at a healthcare tech company, built their first diagnostic model for detecting rare diseases, they were thrilled to see 98% accuracy. But there was a problem: the model achieved this impressive number by simply labeling everything as “normal”. With 10,000 healthy scans and only 200 disease scans in their dataset, the model learned to play it safe. It missed every single actual disease case.\nThis is the class imbalance problem, and in healthcare, where early detection can mean the difference between life and death, getting it wrong isn’t just a technical failure."
+    "section": "Introduction: The Fruit Basket Problem",
+    "text": "Introduction: The Fruit Basket Problem\nImagine you’re teaching a child to recognize different types of fruit. If you show them 100 pictures of apples but only 5 pictures of oranges, they’ll become very good at identifying apples but terrible when they see an orange. This same problem plagues machine learning models in healthcare.\nWhen John, a machine learning engineer at a healthcare tech company, built their first diagnostic model for detecting rare diseases, they were thrilled to see 98% accuracy. But there was a problem: the model achieved this impressive number by simply labeling everything as “normal”. With 10,000 healthy scans and only 200 disease scans in their dataset, the model learned to play it safe. It missed every single actual disease case.\nThis is the class imbalance problem, and in healthcare, where early detection can mean the difference between life and death, getting it wrong isn’t just a technical failure."
   },
   {
     "objectID": "posts/class-imbalance-healthcare/index.html#the-problem-why-class-imbalance-breaks-ml",
@@ -103,5 +103,12 @@
     "title": "myblog",
     "section": "",
     "text": "Tackling Class Imbalance in Machine Learning\n\n\nData-Level vs Algorithm-Level Solutions\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhen Your 98% Accurate Medical ML Might Be Completely Useless: Understanding Class Imbalance in Healthcare\n\n\n\n\n\n\nmachine learning\n\nhealthcare\n\ndata science\n\n\n\n\n\n\n\n\n\nJan 16, 2026\n\n\nJackson Lu\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/class-imbalance-healthcare/index.html#quick-overview-3-minute-presentation",
+    "href": "posts/class-imbalance-healthcare/index.html#quick-overview-3-minute-presentation",
+    "title": "When Your 98% Accurate Medical ML Might Be Completely Useless: Understanding Class Imbalance in Healthcare",
+    "section": "",
+    "text": "TipClick to view slide deck\n\n\n\n\n\n\nOpen slides in full screen"
   }
 ]

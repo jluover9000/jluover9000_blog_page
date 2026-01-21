@@ -4,7 +4,22 @@ author: "Jackson Lu"
 date: "2026-01-16"
 categories: [machine learning, healthcare, data science]
 image: "medicine.png"
+format:
+  html:
+    toc: true
 ---
+
+## Quick Overview: 3-Minute Presentation
+
+::: {.callout-tip collapse="true"}
+## Click to view slide deck
+
+```{=html}
+<iframe src="presentation.html" width="100%" height="500px" style="border:1px solid #ccc;"></iframe>
+```
+
+[Open slides in full screen](presentation.html){target="_blank"}
+:::
 
 ## Introduction: The Fruit Basket Problem 
 
