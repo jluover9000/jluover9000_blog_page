@@ -1,7 +1,9 @@
 ---
-title: "Tackling Class Imbalance in Machine Learning"
-subtitle: "Data-Level vs Algorithm-Level Solutions"
+title: "Addressing Class Imbalance in Healthcare Data"
 listing: false
+resources:
+  - img/*.png
+  - _presentation_files
 format:
   revealjs:
     theme: dark
@@ -11,82 +13,65 @@ format:
 
 ## What is Class Imbalance?
 
-:::: {.columns}
-::: {.column width="50%"}
-**Teaching a Kid**
+![](img/appleandoranges.png){width=70%}
 
-- 🍎 100 apples
-- 🍊 5 oranges
-
-Great at spotting apples ✓  
-Poor at spotting oranges ✗
+::: {.fragment}
+**Problem:** Models trained on imbalanced data will always predict the majority class
 :::
 
-::: {.column width="50%"}
-**In Machine Learning**
-
-- Majority class dominates
-- Model ignores minority class
-- Same problem!
+::: {.notes}
+Good morning! Imagine teaching a child to recognize fruits by showing them 100 apples but only 5 oranges. When they see a new fruit, they'll probably just guess "apple" every time because that's what they've seen the most. This same problem happens in healthcare where we have far more healthy patients than sick ones. The model becomes biased toward the majority class and fails to detect the rare cases that we actually care about.
 :::
-::::
 
 ---
 
-## Data-Level Solutions
+## How Do We Fix This?
 
 :::: {.columns}
 ::: {.column width="50%"}
-### SMOTE
-- Creates synthetic minority examples
-- Interpolates between samples
-- Balances dataset
+### Data-Level Approach
+- Oversampling
+- Undersampling
+- Goal: Even out the classes
 :::
 
 ::: {.column width="50%"}
-### Undersampling
-- Reduces majority class
-- Risk: loses information
+### Algorithm-Level Approach
+- Balanced Random Forest
+- Balanced Bagging
+- Goal: Tweak the model
 :::
 ::::
+
+::: {.notes}
+So how do we fix this? We will be discussing the two most common approaches. One is a data level approach where we apply techniques like oversampling and undersampling: the goal is to even out the classes. Second is an algorithm level approach where we look for models that work well with imbalance data: the goal here is to tweak the model rather than tweaking the training data. The models that I would like to mention are Balanced Random Forest and Balanced Bagging. These models have balancing techniques built directly into the algorithm like weighted sampling and cost-sensitive learning. This leads to my question: which approach actually works better in practice?
+:::
 
 ---
 
-## Algorithm-Level Solutions
+## The Winner: Tree-Based Models
 
-**Tree-Based Ensembles**
+![](img/avgranking.png){width=80%}
 
-:::: {.columns}
-::: {.column width="50%"}
-### Balanced Bagging
-- Balanced bootstrap sampling
-- Multiple balanced trees
+::: {.notes}
+It turns out algorithm level approach is the clear winner. Especially tree based models like balanced random forest and balanced bagging. Non-tree based models like SVM and KNN will require oversampling and undersampling to be considered usable. In this chart I would like you to focus on the top. You will notice that balanced bagging and balanced random forest are leading in the ranking and that is because it always scored the highest over other approaches. And the bottom ranking consists of non-tree based models with data level approaches.
 :::
 
-::: {.column width="50%"}
-### Balanced Random Forest
-- Built-in class weights
-- No preprocessing needed
-:::
-::::
+---
+
+## Key Takeaway
 
 ::: {.callout-important}
-**Outperform** data-level methods!
+## Bottom Line
+Skip oversampling/undersampling. Use **Balanced Random Forest** for imbalanced healthcare data.
 :::
 
----
+::: {.fragment}
+✓ More effective  
+✓ Easier to implement  
+✓ Designed for this problem
+:::
 
-## Key Takeaways
-
-::: {.incremental}
-1. **Class imbalance** → models favor majority class
-
-2. **Data-level**: SMOTE, undersampling
-   - Simple but may lose info
-
-3. **Algorithm-level**: Balanced ensembles
-   - Better performance
-   - No preprocessing
-
-4. **Tree-based ensembles win!**
+::: {.notes}
+So here's the bottom line: if you're working with imbalanced healthcare data, skip oversampling and undersampling, go straight to tree-based models like Balanced Random Forest. They're more effective, easier to implement, and specifically designed for this problem. Thank you!
 :::

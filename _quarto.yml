@@ -1,6 +1,9 @@
 project:
   type: website
   output-dir: docs
+  post-render:
+    - "cp -r posts/class-imbalance-healthcare/_presentation_files docs/posts/class-imbalance-healthcare/"
+    - "cp -r posts/class-imbalance-healthcare/img docs/posts/class-imbalance-healthcare/"
 
 website:
   description: "A blog built with Quarto"

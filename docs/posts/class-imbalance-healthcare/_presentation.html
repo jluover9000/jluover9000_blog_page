@@ -9,7 +9,7 @@
 <link href="_presentation_files/libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.26">
 
-  <title>Tackling Class Imbalance in Machine Learning</title>
+  <title>Addressing Class Imbalance in Healthcare Data</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -126,8 +126,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Tackling Class Imbalance in Machine Learning</h1>
-  <p class="subtitle">Data-Level vs Algorithm-Level Solutions</p>
+  <h1 class="title">Addressing Class Imbalance in Healthcare Data</h1>
 
 <div class="quarto-title-authors">
 </div>
@@ -135,88 +134,106 @@
 </section>
 <section id="what-is-class-imbalance" class="slide level2">
 <h2>What is Class Imbalance?</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><strong>Teaching a Kid</strong></p>
-<ul>
-<li>🍎 100 apples</li>
-<li>🍊 5 oranges</li>
-</ul>
-<p>Great at spotting apples ✓<br>
-Poor at spotting oranges ✗</p>
-</div><div class="column" style="width:50%;">
-<p><strong>In Machine Learning</strong></p>
-<ul>
-<li>Majority class dominates</li>
-<li>Model ignores minority class</li>
-<li>Same problem!</li>
-</ul>
-</div></div>
+
+<img data-src="img/appleandoranges.png" style="width:70.0%" class="r-stretch"><div class="fragment">
+<p><strong>Problem:</strong> Models trained on imbalanced data will always predict the majority class</p>
+</div>
+<aside class="notes">
+<p>Good morning! Imagine teaching a child to recognize fruits by showing them 100 apples but only 5 oranges. When they see a new fruit, they’ll probably just guess “apple” every time because that’s what they’ve seen the most. This same problem happens in healthcare where we have far more healthy patients than sick ones. The model becomes biased toward the majority class and fails to detect the rare cases that we actually care about.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="data-level-solutions" class="slide level2">
-<h2>Data-Level Solutions</h2>
+<section id="how-do-we-fix-this" class="slide level2">
+<h2>How Do We Fix This?</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<h3 id="smote">SMOTE</h3>
+<h3 id="data-level-approach">Data-Level Approach</h3>
 <ul>
-<li>Creates synthetic minority examples</li>
-<li>Interpolates between samples</li>
-<li>Balances dataset</li>
+<li>Oversampling</li>
+<li>Undersampling</li>
+<li>Goal: Even out the classes</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<h3 id="undersampling">Undersampling</h3>
+<h3 id="algorithm-level-approach">Algorithm-Level Approach</h3>
 <ul>
-<li>Reduces majority class</li>
-<li>Risk: loses information</li>
+<li>Balanced Random Forest</li>
+<li>Balanced Bagging</li>
+<li>Goal: Tweak the model</li>
 </ul>
 </div></div>
+<aside class="notes">
+<p>So how do we fix this? We will be discussing the two most common approaches. One is a data level approach where we apply techniques like oversampling and undersampling: the goal is to even out the classes. Second is an algorithm level approach where we look for models that work well with imbalance data: the goal here is to tweak the model rather than tweaking the training data. The models that I would like to mention are Balanced Random Forest and Balanced Bagging. These models have balancing techniques built directly into the algorithm like weighted sampling and cost-sensitive learning. This leads to my question: which approach actually works better in practice?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
-<section id="algorithm-level-solutions" class="slide level2">
-<h2>Algorithm-Level Solutions</h2>
-<p><strong>Tree-Based Ensembles</strong></p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h3 id="balanced-bagging">Balanced Bagging</h3>
-<ul>
-<li>Balanced bootstrap sampling</li>
-<li>Multiple balanced trees</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<h3 id="balanced-random-forest">Balanced Random Forest</h3>
-<ul>
-<li>Built-in class weights</li>
-<li>No preprocessing needed</li>
-</ul>
-</div></div>
+<section id="the-winner-tree-based-models" class="slide level2">
+<h2>The Winner: Tree-Based Models</h2>
+
+<img data-src="img/avgranking.png" style="width:80.0%" class="r-stretch"><aside class="notes">
+<p>It turns out algorithm level approach is the clear winner. Especially tree based models like balanced random forest and balanced bagging. Non-tree based models like SVM and KNN will require oversampling and undersampling to be considered usable. In this chart I would like you to focus on the top. You will notice that balanced bagging and balanced random forest are leading in the ranking and that is because it always scored the highest over other approaches. And the bottom ranking consists of non-tree based models with data level approaches.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="key-takeaway" class="slide level2">
+<h2>Key Takeaway</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Important</strong></p>
+<p><strong>Bottom Line</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>Outperform</strong> data-level methods!</p>
+<p>Skip oversampling/undersampling. Use <strong>Balanced Random Forest</strong> for imbalanced healthcare data.</p>
 </div>
 </div>
 </div>
-</section>
-<section id="key-takeaways" class="slide level2">
-<h2>Key Takeaways</h2>
-<ol type="1">
-<li class="fragment"><p><strong>Class imbalance</strong> → models favor majority class</p></li>
-<li class="fragment"><p><strong>Data-level</strong>: SMOTE, undersampling</p>
-<ul>
-<li class="fragment">Simple but may lose info</li>
-</ul></li>
-<li class="fragment"><p><strong>Algorithm-level</strong>: Balanced ensembles</p>
-<ul>
-<li class="fragment">Better performance</li>
-<li class="fragment">No preprocessing</li>
-</ul></li>
-<li class="fragment"><p><strong>Tree-based ensembles win!</strong></p></li>
-</ol>
+<div class="fragment">
+<p>✓ More effective<br>
+✓ Easier to implement<br>
+✓ Designed for this problem</p>
+</div>
+<aside class="notes">
+<p>So here’s the bottom line: if you’re working with imbalanced healthcare data, skip oversampling and undersampling, go straight to tree-based models like Balanced Random Forest. They’re more effective, easier to implement, and specifically designed for this problem. Thank you!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 
 </section>
     </div>
