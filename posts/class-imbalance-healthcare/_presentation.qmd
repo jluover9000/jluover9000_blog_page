@@ -14,7 +14,7 @@ format:
 ## What is Class Imbalance?
 
 ![](img/appleandoranges.png){width=70%}
-
+<p style="font-size: 0.5em; font-style: italic;">Source: ChatGPT Images</p>
 
 ::: {.notes}
 Good morning! Imagine teaching a child to recognize fruits by showing them 100 apples but only 5 oranges. When they see a new fruit, they'll probably just guess "apple" every time because that's what they've seen the most. This same problem happens in healthcare where we have far more healthy patients than sick ones. The model becomes biased toward the majority class and fails to detect the rare cases that we actually care about.
