@@ -15,9 +15,6 @@ format:
 
 ![](img/appleandoranges.png){width=70%}
 
-::: {.fragment}
-**Problem:** Models trained on imbalanced data will always predict the majority class
-:::
 
 ::: {.notes}
 Good morning! Imagine teaching a child to recognize fruits by showing them 100 apples but only 5 oranges. When they see a new fruit, they'll probably just guess "apple" every time because that's what they've seen the most. This same problem happens in healthcare where we have far more healthy patients than sick ones. The model becomes biased toward the majority class and fails to detect the rare cases that we actually care about.
@@ -52,6 +49,8 @@ So how do we fix this? We will be discussing the two most common approaches. One
 ## The Winner: Tree-Based Models
 
 ![](img/avgranking.png){width=80%}
+
+<p style="font-size: 0.5em; font-style: italic;">Source: Martínez-Velasco et al., IEEE LATIN AMERICA TRANSACTIONS (2024)</p>
 
 ::: {.notes}
 It turns out algorithm level approach is the clear winner. Especially tree based models like balanced random forest and balanced bagging. Non-tree based models like SVM and KNN will require oversampling and undersampling to be considered usable. In this chart I would like you to focus on the top. You will notice that balanced bagging and balanced random forest are leading in the ranking and that is because it always scored the highest over other approaches. And the bottom ranking consists of non-tree based models with data level approaches.
