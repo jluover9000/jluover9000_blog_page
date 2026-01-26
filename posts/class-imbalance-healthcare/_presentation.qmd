@@ -1,5 +1,6 @@
 ---
-title: "Addressing Class Imbalance in Healthcare Data"
+title: "Dealing With Imbalanced Healthcare Data"
+subtitle: "Jackson Lu"
 listing: false
 resources:
   - img/*.png
@@ -13,47 +14,60 @@ format:
 
 ## What is Class Imbalance?
 
-![](img/appleandoranges.png){width=70%}
-<p style="font-size: 0.5em; font-style: italic;">Source: ChatGPT Images</p>
+![](img/piechart.png){width=70%}
 
 ::: {.notes}
-Good morning! Imagine teaching a child to recognize fruits by showing them 100 apples but only 5 oranges. When they see a new fruit, they'll probably just guess "apple" every time because that's what they've seen the most. This same problem happens in healthcare where we have far more healthy patients than sick ones. The model becomes biased toward the majority class and fails to detect the rare cases that we actually care about.
+Today I'm hope to convince you to use Balanced tree based models for imbalanced healthcare data and not immediately use techniques like oversampling or undersampling in your training data.
+:::
+::: {.notes}
+Class imbalance is everywhere in healthcare data. In a typical medical imaging dataset, we might see 95% healthy scans and only 5% showing disease. This mirrors reality where most people are healthy.
+But here's the catch: when we train a model on this imbalanced data, it becomes really good at identifying healthy cases and terrible at detecting the 5% that actually matters.
+In healthcare, the minority class is often the most critical class.
 :::
 
 ---
 
-## How Do We Fix This?
+## Two Approaches
 
 :::: {.columns}
 ::: {.column width="50%"}
 ### Data-Level Approach
-- Oversampling
-- Undersampling
-- Goal: Even out the classes
+- Oversampling (↑ minority)
+- Undersampling (↓ majority)
 :::
 
 ::: {.column width="50%"}
 ### Algorithm-Level Approach
 - Balanced Random Forest
 - Balanced Bagging
-- Goal: Tweak the model
 :::
 ::::
 
 ::: {.notes}
-So how do we fix this? We will be discussing the two most common approaches. One is a data level approach where we apply techniques like oversampling and undersampling: the goal is to even out the classes. Second is an algorithm level approach where we look for models that work well with imbalance data: the goal here is to tweak the model rather than tweaking the training data. The models that I would like to mention are Balanced Random Forest and Balanced Bagging. These models have balancing techniques built directly into the algorithm like weighted sampling and cost-sensitive learning. This leads to my question: which approach actually works better in practice?
+There are two main approaches. 
+First, data-level: where you manipulate your training data by synthetically boosting the minority class or randomly remove majority class to create a balanced dataset then feed that to the model.
+Think of it like studying from a manipulated textbook that doesn't reflect reality.
+
+Second, algorith-level: you look for models that pay extra attention to minority class without changing training data. Balanced Random Forest and Balanced Bagging are two models that does exactly this.
+They have built in parameter that lets you set the weights. 
 :::
 
 ---
 
-## The Winner: Tree-Based Models
+## Which Works Better?
 
 ![](img/avgranking.png){width=80%}
 
 <p style="font-size: 0.5em; font-style: italic;">Source: Martínez-Velasco et al., IEEE LATIN AMERICA TRANSACTIONS (2024)</p>
 
 ::: {.notes}
-It turns out algorithm level approach is the clear winner. Especially tree based models like balanced random forest and balanced bagging. Non-tree based models like SVM and KNN will require oversampling and undersampling to be considered usable. In this chart I would like you to focus on the top. You will notice that balanced bagging and balanced random forest are leading in the ranking and that is because it always scored the highest over other approaches. And the bottom ranking consists of non-tree based models with data level approaches.
+So which approach actually works better? 
+According to this chart from a publication i found on IEEE. 
+It ranks different methods based on balanced accuracy which is the average score of recall and specificity.
+which is what matters in medical diagnosis.
+Look at the top: Balanced Bagging and Balanced Random Forest dominate the rankings. Now look at the bottom: non-tree models like SVM and KNN, even when combined with oversampling and undersampling.
+
+Why? The tree-based models handle imbalance during the learning process itself—each tree is built with balanced bootstrapped samples, so they naturally weight rare cases properly. In contrast, SVM and KNN rely on geometric distance calculations that get overwhelmed by the majority class. Oversampling helps, but it's a band-aid, not a structural fix."
 :::
 
 ---
@@ -62,7 +76,7 @@ It turns out algorithm level approach is the clear winner. Especially tree based
 
 ::: {.callout-important}
 ## Bottom Line
-Skip oversampling/undersampling. Use **Balanced Random Forest** for imbalanced healthcare data.
+Start here: Balanced Random Forest
 :::
 
 ::: {.fragment}

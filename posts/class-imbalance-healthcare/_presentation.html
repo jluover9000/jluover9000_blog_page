@@ -9,7 +9,7 @@
 <link href="_presentation_files/libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.26">
 
-  <title>Addressing Class Imbalance in Healthcare Data</title>
+  <title>Dealing With Imbalanced Healthcare Data</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -126,7 +126,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Addressing Class Imbalance in Healthcare Data</h1>
+  <h1 class="title">Dealing With Imbalanced Healthcare Data</h1>
+  <p class="subtitle">Jackson Lu</p>
 
 <div class="quarto-title-authors">
 </div>
@@ -134,12 +135,22 @@
 </section>
 <section id="what-is-class-imbalance" class="slide level2">
 <h2>What is Class Imbalance?</h2>
-<img data-src="img/appleandoranges.png" style="width:70.0%">
-<p style="font-size: 0.5em; font-style: italic;">
-Source: ChatGPT Images
-</p>
+
+<img data-src="img/piechart.png" style="width:70.0%" class="r-stretch"><aside class="notes">
+<p>Today I’m hope to convince you to use Balanced tree based models for imbalanced healthcare data and not immediately use techniques like oversampling or undersampling in your training data.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 <aside class="notes">
-<p>Good morning! Imagine teaching a child to recognize fruits by showing them 100 apples but only 5 oranges. When they see a new fruit, they’ll probably just guess “apple” every time because that’s what they’ve seen the most. This same problem happens in healthcare where we have far more healthy patients than sick ones. The model becomes biased toward the majority class and fails to detect the rare cases that we actually care about.</p>
+<p>Class imbalance is everywhere in healthcare data. In a typical medical imaging dataset, we might see 95% healthy scans and only 5% showing disease. This mirrors reality where most people are healthy. But here’s the catch: when we train a model on this imbalanced data, it becomes really good at identifying healthy cases and terrible at detecting the 5% that actually matters. In healthcare, the minority class is often the most critical class.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -152,26 +163,25 @@ Source: ChatGPT Images
           display:block!important;
       }</style></aside>
 </section>
-<section id="how-do-we-fix-this" class="slide level2">
-<h2>How Do We Fix This?</h2>
+<section id="two-approaches" class="slide level2">
+<h2>Two Approaches</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <h3 id="data-level-approach">Data-Level Approach</h3>
 <ul>
-<li>Oversampling</li>
-<li>Undersampling</li>
-<li>Goal: Even out the classes</li>
+<li>Oversampling (↑ minority)</li>
+<li>Undersampling (↓ majority)</li>
 </ul>
 </div><div class="column" style="width:50%;">
 <h3 id="algorithm-level-approach">Algorithm-Level Approach</h3>
 <ul>
 <li>Balanced Random Forest</li>
 <li>Balanced Bagging</li>
-<li>Goal: Tweak the model</li>
 </ul>
 </div></div>
 <aside class="notes">
-<p>So how do we fix this? We will be discussing the two most common approaches. One is a data level approach where we apply techniques like oversampling and undersampling: the goal is to even out the classes. Second is an algorithm level approach where we look for models that work well with imbalance data: the goal here is to tweak the model rather than tweaking the training data. The models that I would like to mention are Balanced Random Forest and Balanced Bagging. These models have balancing techniques built directly into the algorithm like weighted sampling and cost-sensitive learning. This leads to my question: which approach actually works better in practice?</p>
+<p>There are two main approaches. First, data-level: where you manipulate your training data by synthetically boosting the minority class or randomly remove majority class to create a balanced dataset then feed that to the model. Think of it like studying from a manipulated textbook that doesn’t reflect reality.</p>
+<p>Second, algorith-level: you look for models that pay extra attention to minority class without changing training data. Balanced Random Forest and Balanced Bagging are two models that does exactly this. They have built in parameter that lets you set the weights.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -184,14 +194,15 @@ Source: ChatGPT Images
           display:block!important;
       }</style></aside>
 </section>
-<section id="the-winner-tree-based-models" class="slide level2">
-<h2>The Winner: Tree-Based Models</h2>
+<section id="which-works-better" class="slide level2">
+<h2>Which Works Better?</h2>
 
 <img data-src="img/avgranking.png" style="width:80.0%" class="r-stretch"><p style="font-size: 0.5em; font-style: italic;">
 Source: Martínez-Velasco et al., IEEE LATIN AMERICA TRANSACTIONS (2024)
 </p>
 <aside class="notes">
-<p>It turns out algorithm level approach is the clear winner. Especially tree based models like balanced random forest and balanced bagging. Non-tree based models like SVM and KNN will require oversampling and undersampling to be considered usable. In this chart I would like you to focus on the top. You will notice that balanced bagging and balanced random forest are leading in the ranking and that is because it always scored the highest over other approaches. And the bottom ranking consists of non-tree based models with data level approaches.</p>
+<p>So which approach actually works better? According to this chart from a publication i found on IEEE. It ranks different methods based on balanced accuracy which is the average score of recall and specificity. which is what matters in medical diagnosis. Look at the top: Balanced Bagging and Balanced Random Forest dominate the rankings. Now look at the bottom: non-tree models like SVM and KNN, even when combined with oversampling and undersampling.</p>
+<p>Why? The tree-based models handle imbalance during the learning process itself—each tree is built with balanced bootstrapped samples, so they naturally weight rare cases properly. In contrast, SVM and KNN rely on geometric distance calculations that get overwhelmed by the majority class. Oversampling helps, but it’s a band-aid, not a structural fix.”</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -215,7 +226,7 @@ Source: Martínez-Velasco et al., IEEE LATIN AMERICA TRANSACTIONS (2024)
 <p><strong>Bottom Line</strong></p>
 </div>
 <div class="callout-content">
-<p>Skip oversampling/undersampling. Use <strong>Balanced Random Forest</strong> for imbalanced healthcare data.</p>
+<p>Start here: Balanced Random Forest</p>
 </div>
 </div>
 </div>
